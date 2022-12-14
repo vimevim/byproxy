@@ -2,8 +2,29 @@
 name = "byproxy"
 version = "0.1.0"
 description = ""
-authors = ["uykusuz <vimevim@gmail.com>"]
+authors = [
+    "uykusuz <vimevim@gmail.com>"
+    ]
 readme = "README.md"
+license = "MIT"
+packages = [
+    {include = "byproxy"}
+    ]
+maintainers = [
+    "uykusuz <vimevim@gmail.com>"
+]
+repository = "https://github.com/vimevim/byproxy"
+keywords = ["proxy", "ip", "host", "http", "https", "socks4", "socks5"]
+classifiers = [
+    "Topic :: Software Development :: Libraries :: Python Modules"
+]
+include = [
+    "CHANGELOG.md"
+    ]
+exclude = [
+    "proxies.txt",
+    "Development.ipynb"
+    ]
 
 [tool.poetry.dependencies]
 python = "3.8.8"
