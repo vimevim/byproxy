@@ -1,6 +1,6 @@
 # ByProxy
 
-ByProxy is a library to generate proxy dictionaries from a list of urls.
+ByProxy is a library to generate proxy dictionaries from a list of urls and gain information about the proxies.
 
 - It has two main classes:
   - ProxyChecker:
