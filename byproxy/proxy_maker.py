@@ -35,31 +35,43 @@ class ProxyMaker:
         """
         return [dict(zip(keys, l)) for l in lines]
     
-    def make_proxies(self, lines, type, password_enabled = False):
+    def make_proxies(self, proxy_dicts, type, password_enabled = False):
         """
         Make proxies from a list of dictionaries.
         
         Args:
-            lines (list): List of dictionaries.
-            type (str): Type of proxy.
+            proxy_dicts (list): List of dictionaries with keys "host", "port", "username", "password".
+            type (str): Type of proxy, http or https.
             password_enabled (bool): Whether the proxy requires a password. Defaults to False.
         
         Returns:
             list: List of proxies.
         """
         proxies = []
-        if password_enabled:
-            for line in lines:
-                proxy = { # United States - Does not work
-                    "http": f"{type}://{line[2]}:{line[3]}@{line[0]}:{line[1]}/",
-                    "https": f"{type}://{line[2]}:{line[3]}@{line[0]}:{line[1]}/",
-                }
-                proxies.append(proxy)
-        else:
-            for line in lines:
-                proxy = { # United States - Does not work
-                    "http": f"{type}://{line[0]}:{line[1]}/",
-                    "https": f"{type}://{line[0]}:{line[1]}/",
-                }
-                proxies.append(proxy)
+        for proxy_dict in proxy_dicts:
+            proxies.append(self.make_proxy(proxy_dict, type, password_enabled))
         return proxies
+    
+    def make_proxy(self, proxy_dict, type, password_enabled = False):
+        """
+        Make proxies from a list of dictionaries.
+        
+        Args:
+            proxy_dict (dict): A dict with keys "host", "port", "username", "password".
+            type (str): Type of proxy, http or https.
+            password_enabled (bool): Whether the proxy requires a password. Defaults to False.
+        
+        Returns:
+            list: List of proxies.
+        """
+        if password_enabled:
+            proxy = { # United States - Does not work
+                "http": f"{type}://{proxy_dict['host']}:{proxy_dict['port']}@{proxy_dict['username']}:{proxy_dict['password']}/",
+                "https": f"{type}://{proxy_dict['host']}:{proxy_dict['port']}@{proxy_dict['username']}:{proxy_dict['password']}/",
+            }
+        else:
+            proxy = { # United States - Does not work
+                "http": f"{type}://{proxy_dict['host']}:{proxy_dict['port']}/",
+                "https": f"{type}://{proxy_dict['host']}:{proxy_dict['port']}/",
+            }
+        return proxy
