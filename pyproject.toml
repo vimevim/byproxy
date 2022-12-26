@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "byproxy"
-version = "0.1.2.2"
+version = "0.1.3"
 description = "ByProxy is a library to generate proxy dictionaries from a list of urls and gain information about the proxies."
 authors = [
     "uykusuz <vimevim@gmail.com>"
