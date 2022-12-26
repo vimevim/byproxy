@@ -93,12 +93,12 @@ class ProxyMaker:
         """
         if password_enabled:
             proxy = { # United States - Does not work
-                "http": f"{type}://{proxy_dict['host']}:{proxy_dict['port']}@{proxy_dict['username']}:{proxy_dict['password']}/",
-                "https": f"{type}://{proxy_dict['host']}:{proxy_dict['port']}@{proxy_dict['username']}:{proxy_dict['password']}/",
+                "http": f"{type}://{proxy_dict['username']}:{proxy_dict['password']}@{proxy_dict['host']}:{proxy_dict['port']}",
+                "https": f"{type}://{proxy_dict['username']}:{proxy_dict['password']}@{proxy_dict['host']}:{proxy_dict['port']}",
             }
         else:
             proxy = { # United States - Does not work
-                "http": f"{type}://{proxy_dict['host']}:{proxy_dict['port']}/",
-                "https": f"{type}://{proxy_dict['host']}:{proxy_dict['port']}/",
+                "http": f"{type}://{proxy_dict['host']}:{proxy_dict['port']}",
+                "https": f"{type}://{proxy_dict['host']}:{proxy_dict['port']}",
             }
         return proxy

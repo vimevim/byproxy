@@ -29,7 +29,7 @@ class ProxyChecker:
             data = response.json()
             data["target_ip_details"] = "success"
         except Exception as e:
-            print(e)
+            data["target_ip_details_error_message"] = e
             data["target_ip_details"] = "failed"
         finally:
             self.session.headers = old_headers
@@ -46,7 +46,8 @@ class ProxyChecker:
             data = response.json()
             data["check_my_ip"] = "success"
         except Exception as e:
-            print(e)
+            data["check_my_ip_error_message"] = e
+            data["check_my_ip_error_message"] = e
             data["check_my_ip"] = "failed"
         finally:
             return data
@@ -66,9 +67,8 @@ class ProxyChecker:
         try:
             response = self.session.get(url, timeout = timeout)
             data["check_target_url"] = "success"
-            print("success")
         except Exception as e:
-            print(e)
+            data["check_target_url_error_message"] = e
             data["check_target_url"] = "failed"
         finally:
             return data
