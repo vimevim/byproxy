@@ -22,35 +22,18 @@ class ProxyChecker:
         """
         old_headers = self.session.headers.copy()
         self.session.headers["Origin"] = 'https://ip-api.com'
-        data = {}
-        try:
-            url = f"https://demo.ip-api.com/json/{host}?fields={fields}&lang=en"
-            response = self.session.request("GET", url)
-            data = response.json()
-            data["target_ip_details"] = "success"
-        except Exception as e:
-            data["target_ip_details_error_message"] = e
-            data["target_ip_details"] = "failed"
-        finally:
-            self.session.headers = old_headers
-            return data
+        url = f"https://demo.ip-api.com/json/{host}?fields={fields}&lang=en"
+        response = self.session.request("GET", url)
+        self.session.headers = old_headers
+        return response
     
     def check_my_ip(self):
         """
         Check the IP address of the proxy.
         """
         url ="http://httpbin.org/ip"
-        data = {}
-        try: 
-            response = self.session.get(url)
-            data = response.json()
-            data["check_my_ip"] = "success"
-        except Exception as e:
-            data["check_my_ip_error_message"] = e
-            data["check_my_ip_error_message"] = e
-            data["check_my_ip"] = "failed"
-        finally:
-            return data
+        response = self.session.get(url)
+        return response
 
     def check_target_url(self, url, timeout = 5):
         """
@@ -63,12 +46,5 @@ class ProxyChecker:
         Returns:
             dict: A dictionary containing the status code and the response time.
         """
-        data = {}
-        try:
-            response = self.session.get(url, timeout = timeout)
-            data["check_target_url"] = "success"
-        except Exception as e:
-            data["check_target_url_error_message"] = e
-            data["check_target_url"] = "failed"
-        finally:
-            return data
+        response = self.session.get(url, timeout = timeout)
+        return response
