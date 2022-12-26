@@ -13,7 +13,7 @@ class ProxyMaker:
     
     def split_lines(self, lines, separator = ":"):
         """
-        Split lines into a list of lists.
+        Split list of lines into a list of lists.
         
         Args:
             lines (list): List of lines.
@@ -21,9 +21,22 @@ class ProxyMaker:
         Returns:
             list: List of lists.
         """
-        return [line.split(separator) for line in lines]    
+        return [self.split_line(line, separator) for line in lines]
     
-    def lines_to_dict(self, lines, keys = ["host", "port", "username", "password"]):
+    def split_line(self, line, separator = ":"):
+        """
+        Split line into a list.
+        
+        Args:
+            line (str): Line of text.
+            separator (str): Separator to split the lines. Defaults to ":".
+        Returns:
+            list: List of lists.
+        """
+        return line.split(separator)
+    
+    
+    def lines_to_dicts(self, lines, keys = ["host", "port", "username", "password"]):
         """
         Convert a list of lists to a list of dictionaries.
         
@@ -33,7 +46,21 @@ class ProxyMaker:
         Returns:
             list: List of dictionaries.
         """
-        return [dict(zip(keys, l)) for l in lines]
+        return [self.line_to_dict(line, keys) for line in lines]
+    
+    
+    def line_to_dict(self, line, keys = ["host", "port", "username", "password"]):
+        """
+        Convert a list of lists to a list of dictionaries.
+        
+        Args:
+            line (list): List of proxy information.
+            keys (list): List of keys in order. Defaults to ["host", "port", "username", "password"].
+        Returns:
+            list: List of dictionaries.
+        """
+        return dict(zip(keys, line))
+    
     
     def make_proxies(self, proxy_dicts, type, password_enabled = False):
         """
