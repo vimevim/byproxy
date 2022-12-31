@@ -1,13 +1,11 @@
-from requests import Session
-
 class ProxyChecker:
     """
     ProxyChecker is a class that contains methods for checking proxies.     
     """
-    def __init__(self, session: Session):
+    def __init__(self, session):
         self.session = session
     
-    def target_ip_details(self, host, fields):
+    async def target_ip_details(self, host, fields):
         """
         Get details about an IP address.
         
@@ -23,19 +21,19 @@ class ProxyChecker:
         old_headers = self.session.headers.copy()
         self.session.headers["Origin"] = 'https://ip-api.com'
         url = f"https://demo.ip-api.com/json/{host}?fields={fields}&lang=en"
-        response = self.session.request("GET", url)
+        response = self.session.get(url)
         self.session.headers = old_headers
-        return response
+        return await response
     
-    def check_my_ip(self):
+    async def check_my_ip(self):
         """
         Check the IP address of the proxy.
         """
         url ="http://httpbin.org/ip"
         response = self.session.get(url)
-        return response
+        return await response
 
-    def check_target_url(self, url, timeout = 5):
+    async def check_target_url(self, url, timeout = 5):
         """
         Check the target URL.
         
@@ -47,4 +45,4 @@ class ProxyChecker:
             dict: A dictionary containing the status code and the response time.
         """
         response = self.session.get(url, timeout = timeout)
-        return response
+        return await response

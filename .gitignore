@@ -168,3 +168,4 @@ cython_debug/
 # Additionals
 Development.ipynb
 proxies.txt
+results.xlsx
